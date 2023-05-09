@@ -51,6 +51,28 @@ public class AggregatorController {
         return entry;
     }
 
+    @GetMapping("/getAllPalindromes")
+    public List<Entry> getAllPalindromes () {
+
+        StopWatch sw = new StopWatch();
+        sw.start();
+        List<Entry> entries = service.getAllPalindromes();
+        sw.stop();
+
+        long nanoSeconds = sw.getLastTaskTimeNanos();
+        String message = new StringBuilder().append("Retrieved all Palindromes [")
+                .append(entries.size())
+                .append("] in ")
+                .append(nanoSeconds / 1000000.0)
+                .append("ms")
+                .toString();
+
+        logger.info(message);
+
+        return entries;
+    }
+
+
     @GetMapping("/getWordsThatContainSuccessiveLettersAndStartsWith/{chars}")
     public List<Entry> getWordsThatContainSuccessiveLettersAndStartsWith(@PathVariable String chars) {
 
